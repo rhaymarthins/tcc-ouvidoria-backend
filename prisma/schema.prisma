@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+model Manifestacao {
+  id        Int      @id @default(autoincrement())
+  tipo      String
+  status    String   @default("Pendente")
+  descricao String   @db.Text
+  protocolo String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("manifestacoes")
+}
